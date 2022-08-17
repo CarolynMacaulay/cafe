@@ -45,6 +45,9 @@ $all_orders_result = mysqli_query($dbcon, $all_orders_query);
 /* Remove if in while loop*/
 /*$all_orders_record = mysqli_fetch_assoc($all_orders_result);*/
 
+$all_customers_query = "SELECT customer_id FROM customers ORDER BY customer_id ASC";
+$all_customers_result = mysqli_query($dbcon, $all_customers_query);
+
 
 ?>
 
@@ -70,6 +73,7 @@ echo "<h1>Coffee Shop</h1>";
 			<li><a href="index.php">Home</a></li>
 			<li><a href="drinks.php">Drinks</a></li>
 			<li><a href="orders.php">Orders</a></li>
+			<li><a href="customers.php">Customers</a></li>
 		</ul>
     </nav>
     <!-- Dropdown Drinks form-->
@@ -104,8 +108,21 @@ echo "<h1>Coffee Shop</h1>";
             }
             ?>
         </select>
-        <input type="submit" name="orders_button" value="Show me the drink information">
+		 <input type="submit" name="orders_button" value="Show me the order information">
     </form>
+	
+	<form name='customers_form' id='customers_form' method='get' action='customers.php'>
+		<select name='customer_sel' id='customer_sel'>
+			<?php
+			while($all_customers_record = mysqli_fetch_assoc($all_customers_result)){
+				echo "<option value ='". $all_customers_record['customer_id'] . "'>";
+				echo $all_customers_record['customer_id'];
+				echo "</optio>";
+			}
+			?>
+		</select>
+		<input type="submit" name="customers_butotn" value="Show me the customers information">
+	</form>
 </main>
 </body>
 </html>
